@@ -4,7 +4,6 @@ author: "Nicholas A. Potter"
 date: "4/2/2019"
 output: html_document
 bibliography: "library.bib"
-bibliography: "../outputs/library.bib"
 ---
 
 ```{r setup, include=FALSE}
@@ -58,7 +57,7 @@ m <- lm(lifeExp ~ continent + year + pop, data = d)
 The results of our analysis can be seen in Table 2.
 
 ```{r, results = "asis"}
-stargazer(m, type = "html")
+stargazer(m, type = "html", ci = TRUE)
 ```
 
 ## References
