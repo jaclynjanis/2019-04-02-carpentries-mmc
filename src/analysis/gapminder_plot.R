@@ -1,11 +1,16 @@
+# Make a plot of life expectancy in Africa
+
 library(here)
 library(tidyverse)
 
+# Read in the data
 gapminder <- readr::read_csv(here("data/gapminder/raw/gapminder_data.csv"))
 
+# The R base way
 mean(gapminder$gdpPercap[gapminder$continent == "Africa"])
 mean(gapminder$gdpPercap[gapminder$continent == "Americas"])
 
+# Using dplyr
 year_country_gdp <- select(gapminder, year, country, gdpPercap)
 
 gapminder %>%
