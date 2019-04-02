@@ -1,0 +1,40 @@
+---
+title: "Analysis of Life Expectancy"
+author: "Nicholas Potter"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(here)
+library(ggplot2)
+library(dplyr)
+```
+
+## Analysis of Life Expectancy by Continent
+
+We hypothesize that life expectancy is a function of time and location. This analysis attempts to check that relationship.
+
+**Note: This is a preliminary analysis and not meant for distribution to the public.**
+
+[Link to the github repository](https://github.com/potterzot/2019-04-02-carpentries-mmc)
+
+As we can see from this plot... big important conclusions.
+
+```{r plot, echo=TRUE, message=FALSE, warning=FALSE}
+
+# Read in the data
+d <- readr::read_csv(here("data/gapminder/raw/gapminder_data.csv"))
+
+# Make a plot of population over time
+ggplot(data = filter(d, continent == "Asia")) + 
+  geom_line(aes(x = year, y = pop, 
+                group = country, color = country))
+```
+
+
+
+## Details
+
+The data consist of years from `r range(d$year)`.
+

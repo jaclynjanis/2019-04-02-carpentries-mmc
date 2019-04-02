@@ -1,0 +1,70 @@
+---
+title: "The Effects of Life Expectancy on Population over Time"
+author: "Nicholas A. Potter"
+date: "4/2/2019"
+output: html_document
+bibliography: "library.bib"
+bibliography: "../outputs/library.bib"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(here)
+library(tidyverse)
+library(pander)
+library(stargazer)
+library(beepr)
+
+# Read in the data
+d <- readr::read_csv(here("data/gapminder/raw/gapminder_data.csv"))
+```
+
+## Introduction
+
+The analysis of life expectancy by Hans Rosling showed that things are getting better [@Rosling2011].
+
+## Model
+
+$$
+y_i =  \beta x_i
+$$
+
+## Data
+
+```{r}
+n_countries <- length(unique(d$country))
+years <- range(d$year)
+pop_mean <- round(mean(d$pop), 0)
+```
+
+The data consist of `r n_countries` unique countries tracked from `r years[1]` to `r years[2]`. Table 1 presents a summary of the variables.
+
+```{r}
+d2 <- d %>% 
+  group_by(country) %>%
+  summarize(pop = mean(pop),
+            lifeExp = mean(lifeExp))
+
+pander(d2)
+```
+
+## Results
+
+```{r}
+m <- lm(lifeExp ~ continent + year + pop, data = d)
+```
+
+
+The results of our analysis can be seen in Table 2.
+
+```{r, results = "asis"}
+stargazer(m, type = "html")
+```
+
+## References
+
+
+
+
+
+
