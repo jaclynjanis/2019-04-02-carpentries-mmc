@@ -1,7 +1,7 @@
 ---
 output:
-  md_document:
-    variant: gfm
+  md_document
+  
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -20,13 +20,13 @@ output:
 
 ## Author
 
-Nicholas A. Potter (potterzot@gmail.com)
+Jaclyn Janis
 
 ## Contents
 
 This is the github repository for our paper titled The Effects of Climate on Agricultural Production in Irrigated Areas. Please make use of our work, and if you do, please cite as follows:
 
->  Potter, Nicholas. "<PAPER TITLE>". *<JOURNAL TITLE>* <VOLUME>, no. <NUMBER> (<YEAR>): <PAGES>. doi: https://dx.doi.org/xxxxxx.
+>  JJ. "<PAPER TITLE>". *<JOURNAL TITLE>* <VOLUME>, no. <NUMBER> (<YEAR>): <PAGES>. doi: https://dx.doi.org/xxxxxx.
 
 ## Requirements
 Some specific software (in addition to R, devtools, and some more common R packages) will help to recreate the results for this paper from scratch. The easiest thing would be to clone this package or to install via `devtools`. If you don't want to do that, you can instead install the following:
