@@ -50,8 +50,59 @@ gap_long %>% group_by(continent) %>%
             mean_pop = mean(obs_values [obs_type == "pop"]),
             mean_gdp = mean(obs_values [obs_type == "gdpPercap"]))
 
-#posted solution
+#posted solution - this is more long format, mine's better
 gap_long %>% group_by(continent, obs_type) %>%
   summarize(means=mean(obs_values))
+
+gap_normal <- gap_long %>% 
+  spread(obs_type, obs_values)
+
+#dimensions of the df
+dim(gap_normal)
+
+#see if the dfs match, but different column orders will not match
+all.equal(gap_normal, gapminder)
+all_equal(gap_normal, gapminder, ignore_col_order = T) #these are still not eq 'cause one int, other dbl
+
+
+#reorder columns
+
+gap_normal <- gap_normal[,names(gapminder)]
+head(gap_normal)
+head(gapminder)
+#or names() of each df
+
+#Bring continent and country together in one var
+gap_temp <- gap_long %>% 
+  unite(var_ID, continent, country, sep = "_")
+str(gap_temp)
+
+
+gap_temp <- gap_long %>% 
+  unite(ID_var, continent, country, sep = "_") %>% 
+  unite(var_names, obs_type, year, sep = "_")
+skim(gap_temp)
+
+#Getting really wide
+gap_wide_new <- gap_long %>% 
+  unite(ID_var, continent, country, sep = "_") %>% 
+  unite(var_names, obs_type, year, sep = "_") %>% 
+  spread(var_names, obs_values)
+head(gap_wide_new)
+
+
+#Challenge 3
+#spread over country, year, and obs
+
+gap_ludicrously_wide <- gap_long %>% 
+  unite(var_names, obs_type, year, country, sep = "_") %>% 
+  spread(var_names, obs_values)
+head(gap_ludicrously_wide)
+skim(gap_ludicrously_wide)
+
+
+
+
+
 
 
