@@ -1,8 +1,11 @@
 ---
 title: "Example: Analysis of Life Expectancy"
 author: "Jaclyn Janis"
+date: "2019-08-02"
 output: html_document
+bibliography: library.bib
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -14,6 +17,38 @@ library(stargazer)
 library(beepr)
 
 ```
+## Introduction
+
+The original analysis by Hans Rosling showed that things are getting better [@Rosling2011].
+
+```{r, message=FALSE}
+#Read in data
+d <- readr::read_csv(here("data/gapminder/raw/gapminder_data.csv"))
+```
+
+##Data
+
+The data consist of `r length(unique(d$country))` unique countries tracked from `r range(d$year)[1]` to `r range(d$year)[2]`. Table 1 presents a summary of the variables.
+
+```{r}
+d2 <- d %>% 
+  group_by(country) %>% 
+  summarize(pop = mean(pop),
+            lifeExp = mean(lifeExp)) %>% 
+  pander(d2)
+```
+
+## Results
+
+```{r}
+m <- lm(lifeExp ~ continent + year + pop, data= d)
+
+```
+```{r, results="asis"}
+stargazer(m, type = "html")
+```
+
+
 ##Analysis of Life Expectancy by Continent
 
 We hypothesize that life expectancy is a function of time and location.
@@ -25,8 +60,6 @@ We hypothesize that life expectancy is a function of time and location.
 
 
 ```{r, message = FALSE}
-#Read in data
-d <- readr::read_csv(here("data/gapminder/raw/gapminder_data.csv"))
 
 d %>% 
   ggplot(aes(x = year, y = lifeExp, color = continent)) +
@@ -34,6 +67,9 @@ d %>%
 ```
 
 You can use R code in line. The data consist of years from `r range(d$year)`.
+
+
+## References
 
 
 
