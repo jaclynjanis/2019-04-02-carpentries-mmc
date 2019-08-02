@@ -30,12 +30,12 @@ d <- readr::read_csv(here("data/gapminder/raw/gapminder_data.csv"))
 
 The data consist of `r length(unique(d$country))` unique countries tracked from `r range(d$year)[1]` to `r range(d$year)[2]`. Table 1 presents a summary of the variables.
 
-```{r}
-d2 <- d %>% 
+```{r, echo=TRUE}
+d %>% 
   group_by(country) %>% 
   summarize(pop = mean(pop),
             lifeExp = mean(lifeExp)) %>% 
-  pander(d2)
+  pander()
 ```
 
 ## Results
@@ -45,7 +45,7 @@ m <- lm(lifeExp ~ continent + year + pop, data= d)
 
 ```
 ```{r, results="asis"}
-stargazer(m, type = "html")
+stargazer(m, type = "html", ci = T)
 ```
 
 
@@ -66,7 +66,7 @@ d %>%
   geom_point(alpha = 0.5)
 ```
 
-You can use R code in line. The data consist of years from `r range(d$year)`.
+You can use R code in line. The data consist of years from `r range(d$year)[1]` to `r range(d$year)[2]` .
 
 
 ## References
